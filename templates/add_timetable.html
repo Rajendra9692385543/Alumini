@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Timetable Entry</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/add_timetable.css') }}">
+    <script>
+        // Sample data for room numbers and subjects
+        const roomNumbers = [
+            'C111', 'C112', 'C113', 'C114', 'C115', 'C116', 'C117',
+            'C121', 'C122', 'C123', 'C124', 'C125', 'C126', 'C127',
+            'C131', 'C132', 'C133', 'C134', 'C135', 'C136', 'C137',
+            'C204', 'C205', 'C211', 'C212', 'C213', 'C214', 'C215', 'C216',
+            'CSE LAB 1', 'CSE LAB 2', 'CSE LAB 3', 'CSE LAB 4',
+            'CC LAB', 'NEW COMPUTER LAB', 'CHEMISTRY LAB', 'BEE LAB',
+            'ECE LAB 2', 'EEE LAB', 'AG LAB 1', 'AG LAB 5'
+        ];
+
+        const subjects = [
+            'MATH', 'SCIENCE', 'ENGLISH', 'HISTORY', 'PHYSICAL EDUCATION',
+            'COMPUTER SCIENCE', 'CHEMISTRY', 'BIOLOGY', 'PHYSICS', 'ART',
+            'MUSIC', 'JOB READINESS', 'SKILL COURSE'
+        ];
+
+        function filterOptions(input, options) {
+            const filtered = options.filter(option => option.toLowerCase().includes(input.toLowerCase()));
+            return filtered.length ? filtered : ['No matches found'];
+        }
+
+        function updateSuggestions(inputField, suggestionsList, options) {
+            const inputValue = inputField.value;
+            const suggestions = filterOptions(inputValue, options);
+            suggestionsList.innerHTML = '';
+            suggestions.forEach(suggestion => {
+                const li = document.createElement('li');
+                li.textContent = suggestion;
+                li.onclick = () => {
+                    inputField.value = suggestion;
+                    suggestionsList.innerHTML = '';
+                };
+                suggestionsList.appendChild(li);
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Add Timetable Entry</h1>
+        <form action="{{ url_for('add_timetable') }}" method="POST">
+            <label for="day">Day:</label>
+            <select id="day" name="day" required>
+                <option value="MONDAY">Monday</option>
+                <option value="TUESDAY">Tuesday</option>
+                <option value="WEDNESDAY">Wednesday</option>
+                <option value="THURSDAY">Thursday</option>
+                <option value="FRIDAY">Friday</option>
+                <option value="SATURDAY">Saturday</option>
+            </select><br>
+
+            <label for="start_time">Start Time:</label>
+            <select id="start_time" name="start_time" required>
+                <option value="09:30:00">09:30 AM</option>
+                <option value="10:30:00">10:30 AM</option>
+                <option value="11:30:00">11:30 AM</option>
+                <option value="12:30:00">12:30 PM</option>
+                <option value="01:30:00">01:30 PM</option>
+                <option value="02:30:00">02:30 PM</option>
+                <option value="03:30:00">03:30 PM</option>
+                <option value="04:30:00">04:30 PM</option>
+                <option value="05:30:00">05:30 PM</option>
+            </select><br>
+
+            <label for="end_time">End Time:</label>
+            <select id="end_time" name="end_time" required>
+                <option value="10:30:00">10:30 AM</option>
+                <option value="11:30:00">11:30 AM</option>
+                <option value="12:30:00">12:30 PM</option>
+                <option value="01:30:00">01:30 PM</option>
+                <option value="02:30:00">02:30 PM</option>
+                <option value="03:30:00">03:30 PM</option>
+                <option value="04:30:00">04:30 PM</option>
+                <option value="05:30:00">05:30 PM</option>
+            </select><br>
+
+            <label for="school">School:</label>
+            <select id="school" name="school" required>
+                <option value="SOET">SOET</option>
+                <option value="SCHOOL OF AG">SCHOOL OF AG</option>
+                <option value="SOM">SOM</option>
+            </select><br>
+
+            <label for="semester">Semester:</label>
+            <select id="semester" name="semester" required>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+            </select><br>
+
+            <label for="section">Section:</label>
+            <select id="section" name="section" required>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="G">G</option>
+                <option value="H">H</option>
+                <option value="I">I</option>
+            </select><br>
+
+            <label for="room_number">Room Number:</label>
+            <input type="text" id="room_number" name="room_number" oninput="updateSuggestions(this, document.getElementById('room_suggestions'), roomNumbers)" required>
+            <ul id="room_suggestions" class="suggestions"></ul><br>
+
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" oninput="updateSuggestions(this, document.getElementById('subject_suggestions'), subjects)" required>
+            <ul id="subject_suggestions" class="suggestions"></ul><br>
+
+            <button type="submit">Add Timetable Entry</button>
+        </form>
+    </div>
+</body>
+</html>

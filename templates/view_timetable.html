@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/view_empty_rooms.css') }}">
+    <title>View Timetable</title>
+</head>
+<body>
+    <div class="timetable-container">
+        <h2>Your Timetable</h2>
+        <h3>Current Time: {{ current_time }}</h3>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Subject</th>
+                    <th>Room Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if timetable %}
+                    {% for entry in timetable %}
+                    <tr>
+                        <td>{{ entry.start_time }}</td>
+                        <td>{{ entry.end_time }}</td>
+                        <td>{{ entry.subject }}</td>
+                        <td>{{ entry.room_number }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4">No classes scheduled for today.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+
+        <!-- Link to Add Timetable Page -->
+        <div class="add-timetable-button">
+            <a href="{{ url_for('add_timetable') }}" class="button">Add Timetable Entry</a>
+        </div>
+
+        <a href="{{ url_for('home') }}">Back to Home</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+</body>
+</html>

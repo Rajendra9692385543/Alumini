@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <title>Home</title>
+</head>
+<body>
+    <div class="home-container">
+        <h2>Welcome, {{ username }}!</h2>
+        <h3>User Information</h3>
+        <ul class="user-info">
+            <li><strong>Username:</strong> {{ user_info['Username'] }}</li>
+            <li><strong>Email:</strong> {{ user_info['Email'] }}</li>
+            <li><strong>Student Name:</strong> {{ user_info['Student Name'] }}</li>
+            <li><strong>Roll Number:</strong> {{ user_info['Roll Number'] }}</li>
+            <li><strong>School:</strong> {{ user_info['School'] }}</li>
+            <li><strong>Branch:</strong> {{ user_info['Branch'] }}</li>
+            <li><strong>Semester:</strong> {{ user_info['Semester'] }}</li>
+            <li><strong>Section:</strong> {{ user_info['Section'] }}</li>
+        </ul>
+        <div class="button-container">
+            <a class="button" href="{{ url_for('view_timetable') }}">View Timetable</a>
+            <a class="button" href="{{ url_for('dashboard') }}">Go to Dashboard</a>
+            <a class="button" href="{{ url_for('view_empty_rooms') }}">View Empty Rooms</a>
+            <a class="button" href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </div>
+</body>
+</html>
