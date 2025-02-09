@@ -16,7 +16,7 @@ scope = [
     "https://www.googleapis.com/auth/drive"
 ]
 
-creds = ServiceAccountCredentials.from_json_keyfile_name("C:/Users/rajen/OneDrive/Desktop/wugs/creds.json", scope)
+creds = ServiceAccountCredentials.from_json_keyfile_name("creds.json", scope)
 client = gspread.authorize(creds)
 
 def open_spreadsheet_with_retry(url, retries=5):
